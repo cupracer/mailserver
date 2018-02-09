@@ -1,0 +1,211 @@
+version: '3'
+
+services:
+
+  postfix:
+    build: ./postfix/image
+    restart: always
+    volumes:
+      - letsencrypt_data:/certs:ro
+      - postfix_spool:/var/spool/postfix
+    tmpfs:
+      - /run
+    depends_on:
+      - dovecot
+      - mysql
+      - letsencrypt
+    environment:
+      MYHOSTNAME: ${MYHOSTNAME:-mail.example.de}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-secret}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
+
+  letsencrypt:
+    build: letsencrypt/image
+    restart: always
+    volumes:
+      - letsencrypt_conf:/etc/certbot
+      - letsencrypt_data:/certs
+    tmpfs:
+      - /run
+    environment:
+      MYHOSTNAME: ${MYHOSTNAME:-mail.example.de}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
+
+  mysql:
+    image: mariadb
+    restart: always
+    volumes:
+      - mysql_conf:/etc/mysql/conf.d
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-secret}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-secret}
+      MYSQL_DATABASE: app
+      MYSQL_USER: app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
+
+  dovecot:
+    build: ./dovecot/image
+    restart: always
+    volumes:
+      - letsencrypt_data:/certs:ro
+      - dovecot_data:/var/vmail
+    tmpfs:
+      - /run
+    depends_on:
+      - mysql
+      - letsencrypt
+    environment:
+      MYHOSTNAME: ${MYHOSTNAME:-mail.example.de}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-secret}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
+
+  rspamd:
+    build: ./rspamd/image
+    restart: always
+    tmpfs:
+      - /run
+    depends_on:
+      - clamav
+      - redis
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
+
+  redis:
+    image: redis
+    volumes:
+      - redis_data:/data
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
+
+  clamav:
+    build: clamav/image
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
+
+  postfixadmin:
+    build: postfixadmin/image
+    restart: always
+    tmpfs:
+      - /run
+    depends_on:
+      - mysql
+      - postfix
+      - dovecot
+    environment:
+      MYHOSTNAME: ${MYHOSTNAME:-mail.example.de}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-secret}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
+
+  roundcube:
+    build: roundcube/image
+    restart: always
+    tmpfs:
+      - /run
+    environment:
+      MYHOSTNAME: ${MYHOSTNAME:-mail.example.de}
+      MYSQL_PASSWORD: ${ROUNDCUBE_MYSQL_PASSWORD:-secret}
+    depends_on:
+      - roundcube-mysql
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
+
+  roundcube-mysql:
+    image: mariadb
+    restart: always
+    volumes:
+      - roundcube-mysql_conf:/etc/mysql/conf.d
+      - roundcube-mysql_data:/var/lib/mysql
+      - ./roundcube-mysql/init:/docker-entrypoint-initdb.d:ro
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROUNDCUBE_MYSQL_ROOT_PASSWORD:-secret}
+      MYSQL_PASSWORD: ${ROUNDCUBE_MYSQL_PASSWORD:-secret}
+    environment:
+      MYSQL_DATABASE: app
+      MYSQL_USER: app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
+
+  haproxy:
+    build: ./haproxy/image
+    restart: always
+    environment:
+      WEB_PASSWORD: ${WEB_PASSWORD:-secret}
+    links:
+      - postfix
+      - dovecot
+      - letsencrypt
+      - roundcube
+      - rspamd
+      - postfixadmin
+    ports:
+      - "25:25"
+      - 587:587
+      - 143:143
+      - 993:993
+      - 80:80
+      - 443:443
+    volumes:
+      - letsencrypt_data:/certs:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
+
+#  ipv6nat:
+#    image: robbertkl/ipv6nat
+#    restart: always
+#    privileged: true
+#    network_mode: "host"
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock:ro
+#      - /lib/modules:/lib/modules:ro
+
+volumes:
+  dovecot_data:
+  letsencrypt_conf:
+  letsencrypt_data:
+  mysql_conf:
+  mysql_data:
+  postfix_spool:
+  redis_data:
+  roundcube-mysql_conf:
+  roundcube-mysql_data:

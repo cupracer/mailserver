@@ -1,0 +1,6 @@
+### Entfernt Datenschutz-relevante Header aus E-Mails von MTUAs
+
+/^Received:/            IGNORE
+/^X-Originating-IP:/    IGNORE
+/^X-Mailer:/            IGNORE
+/^User-Agent:/          IGNORE
