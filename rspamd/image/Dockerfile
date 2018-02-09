@@ -1,19 +1,15 @@
 FROM opensuse:latest
 MAINTAINER Thomas Schulte <thomas@cupracer.de>
 
-RUN zypper --non-interactive ref && \
-    zypper --non-interactive in \
-        curl
-
-RUN zypper --non-interactive up
-
-RUN rpm --import https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/repodata/repomd.xml.key \
-	&& zypper ar --refresh https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/server:mail.repo
-  
-RUN zypper --non-interactive in \
-	rspamd \
-	vim \
-	which
+RUN zypper --non-interactive ref \
+	&& zypper --non-interactive up \
+    && zypper --non-interactive in \
+        curl \
+	&& rpm --import https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/repodata/repomd.xml.key \
+	&& zypper ar --refresh https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/server:mail.repo \
+	&& zypper --non-interactive ref \
+	&& zypper --non-interactive in \
+		rspamd
 
 RUN groupadd -r vmail \
 	&& useradd -g vmail -m -s /bin/false vmail
@@ -29,6 +25,8 @@ COPY target/etc/rspamd/local.d/antivirus.conf /etc/rspamd/local.d/antivirus.conf
 COPY target/start.sh /start.sh
 
 RUN chmod 755 /start.sh
+
+EXPOSE 11332 11334
 
 CMD ["/start.sh"]
 

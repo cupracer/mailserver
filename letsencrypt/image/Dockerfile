@@ -2,15 +2,11 @@ FROM opensuse
 
 MAINTAINER Thomas Schulte <thomas@cupracer.de>
 
-RUN zypper --non-interactive ref && \
-	zypper --non-interactive in \
+RUN zypper --non-interactive ref \
+    && zypper --non-interactive up \
+	&& zypper --non-interactive in \
 		apache2 \
-		certbot \
-		curl \
-		vim \
-		which
-
-RUN zypper --non-interactive up
+		certbot
 
 RUN ln -sf /dev/stdout /var/log/apache2/access_log \
 	&& ln -sf /dev/stderr /var/log/apache2/error_log
