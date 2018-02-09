@@ -1,19 +1,10 @@
 FROM opensuse:latest
 MAINTAINER Thomas Schulte <thomas@cupracer.de>
 
-RUN zypper --non-interactive ref && \
-    zypper --non-interactive in \
-        curl
-
-RUN zypper --non-interactive up
-
-#RUN rpm --import https://download.opensuse.org/repositories/devel:/languages:/python/openSUSE_Leap_42.3/repodata/repomd.xml.key \
-#	&& zypper ar --refresh https://download.opensuse.org/repositories/devel:/languages:/python/openSUSE_Leap_42.3/devel:languages:python.repo
-  
-RUN zypper --non-interactive in \
-	dovecot22-backend-mysql \
-	vim \
-	which
+RUN zypper --non-interactive ref \
+	&& zypper --non-interactive up \
+	&& zypper --non-interactive in \
+	dovecot22-backend-mysql
 
 COPY target/etc/dovecot/dovecot.conf /etc/dovecot/dovecot.conf
 COPY target/etc/dovecot/dovecot-sql.conf.ext /etc/dovecot/dovecot-sql.conf.ext
@@ -40,6 +31,8 @@ COPY target/learn-ham.sieve /var/vmail/sieve/global/learn-ham.sieve
 RUN chmod 755 /start.sh
 
 CMD ["/start.sh"]
+
+EXPOSE 24 143 993 3659 4190 10143 10144 12340
 
 RUN groupadd -r vmail \
 	&& useradd -g vmail -d /var/vmail -s /bin/false vmail \
