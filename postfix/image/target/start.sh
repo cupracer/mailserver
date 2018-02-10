@@ -24,5 +24,7 @@ done
 
 test -d /var/run/supervisord || mkdir -p /var/run/supervisord
 
+while ! [[ -f /certs/${MYHOSTNAME}/fullchain.pem ]] || ! [[ -f /certs/${MYHOSTNAME}/privkey.pem ]]; do echo "waiting for SSL certificate data"; sleep 1; done
+
 supervisord -n -c /etc/supervisord.conf
 
