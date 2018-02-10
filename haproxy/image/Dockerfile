@@ -8,6 +8,7 @@ RUN zypper --non-interactive ref \
     	whois
 
 COPY target/etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg
+COPY target/etc/haproxy/haproxy-ssl.cfg /etc/haproxy/haproxy-ssl.cfg
 
 COPY target/start.sh /start.sh
 
