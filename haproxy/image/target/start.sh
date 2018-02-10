@@ -18,6 +18,7 @@ if [ -f /certs/${MYHOSTNAME}/fullchain.pem ] && [ -f /certs/${MYHOSTNAME}/privke
 	echo "* SSL certificate data found"
 	ENABLE_SSL="-f /etc/haproxy/haproxy-ssl.cfg"
 else
+	ENABLE_SSL=""
 	echo "* SSL certificate data missing"
 fi
 
