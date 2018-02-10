@@ -154,7 +154,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${ROUNDCUBE_MYSQL_ROOT_PASSWORD:-secret}
       MYSQL_PASSWORD: ${ROUNDCUBE_MYSQL_PASSWORD:-secret}
-    environment:
       MYSQL_DATABASE: app
       MYSQL_USER: app
     logging:
@@ -168,7 +167,7 @@ services:
     restart: always
     environment:
       WEB_PASSWORD: ${WEB_PASSWORD:-secret}
-    links:
+    depends_on:
       - postfix
       - dovecot
       - letsencrypt
