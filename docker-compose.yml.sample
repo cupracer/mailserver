@@ -166,6 +166,7 @@ services:
     build: ./haproxy/image
     restart: always
     environment:
+      MYHOSTNAME: ${MYHOSTNAME:-mail.example.de}
       WEB_PASSWORD: ${WEB_PASSWORD:-secret}
     depends_on:
       - postfix
