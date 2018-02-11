@@ -760,8 +760,8 @@ smtpd_use_tls = no
 #smtpd_tls_loglevel = 0
 smtpd_tls_CAfile = 
 smtpd_tls_CApath = 
-smtpd_tls_cert_file = /certs/MYHOSTNAME/fullchain.pem
-smtpd_tls_key_file = /certs/MYHOSTNAME/privkey.pem
+smtpd_tls_cert_file = /certs/live/MYHOSTNAME/fullchain.pem
+smtpd_tls_key_file = /certs/live/MYHOSTNAME/privkey.pem
 smtpd_tls_ask_ccert = no
 smtpd_tls_received_header = no
 ############################################################
