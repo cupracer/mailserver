@@ -8,7 +8,7 @@ RUN zypper --non-interactive ref \
 		apache2 \
 		certbot
 
-RUN mv /etc/certbot/cli.ini /etc/certbot/cli.ini.bak
+COPY target/etc/certbot/cli.ini /etc/certbot/cli.ini
 
 RUN ln -sf /dev/stdout /var/log/apache2/access_log \
 	&& ln -sf /dev/stderr /var/log/apache2/error_log

@@ -13,7 +13,7 @@ cp .env.sample .env
 ## Run (setup)
 
 ```
-docker-compose up -d haproxy letsencrypt
+docker-compose up -d 
 ```
 
 ## letsencrypt
