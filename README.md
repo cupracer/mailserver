@@ -22,6 +22,7 @@ docker-compose up -d
 ```
 docker-compose exec letsencrypt bash
 certbot certonly --webroot -w /srv/www/htdocs -d $MYHOSTNAME
+docker-compose restart haproxy
 ```
 
 ## postfixadmin
