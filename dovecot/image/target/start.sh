@@ -16,7 +16,7 @@ sed -i "s/^connect =.*/connect = host=mysql dbname=app user=app password=${MYSQL
 sed -i "s/postmaster_address = postmaster@postfix/postmaster_address = postmaster@${MYHOSTNAME}/" /etc/dovecot/conf.d/20-lmtp.conf
 sed -i "s/MYHOSTNAME/${MYHOSTNAME}/g" /etc/dovecot/conf.d/10-ssl.conf
 
-while ! [[ -f /certs/${MYHOSTNAME}/fullchain.pem ]] || ! [[ -f /certs/${MYHOSTNAME}/privkey.pem ]]; do echo "waiting for SSL certificate data"; sleep 1; done
+while ! [[ -f /certs/live/${MYHOSTNAME}/fullchain.pem ]] || ! [[ -f /certs/live/${MYHOSTNAME}/privkey.pem ]]; do echo "waiting for SSL certificate data"; sleep 1; done
 
 dovecot -F
 

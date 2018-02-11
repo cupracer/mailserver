@@ -22,7 +22,6 @@ docker-compose up -d haproxy letsencrypt
 ```
 docker-compose exec letsencrypt bash
 certbot certonly --webroot -w /srv/www/htdocs -d $MYHOSTNAME
-cp -vRL /etc/certbot/live/${MYHOSTNAME} /certs/
 ```
 
 ## postfixadmin

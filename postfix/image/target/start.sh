@@ -11,8 +11,8 @@ if [ "${MYSQL_PASSWORD}x" == "x" ]; then
 fi
 
 sed -i "s/^myhostname =.*/myhostname = ${MYHOSTNAME}/" /etc/postfix/main.cf
-sed -i "s/smtpd_tls_cert_file =.*/smtpd_tls_cert_file = \/certs\/${MYHOSTNAME}\/fullchain.pem/" /etc/postfix/main.cf
-sed -i "s/smtpd_tls_key_file =.*/smtpd_tls_key_file = \/certs\/${MYHOSTNAME}\/privkey.pem/" /etc/postfix/main.cf
+sed -i "s/smtpd_tls_cert_file =.*/smtpd_tls_cert_file = \/certs\/live\/${MYHOSTNAME}\/fullchain.pem/" /etc/postfix/main.cf
+sed -i "s/smtpd_tls_key_file =.*/smtpd_tls_key_file = \/certs\/live\/${MYHOSTNAME}\/privkey.pem/" /etc/postfix/main.cf
 
 sed -i "s/^password =.*/password = ${MYSQL_PASSWORD//\//\\/}/" /etc/postfix/sql/*.cf
 
@@ -24,7 +24,7 @@ done
 
 test -d /var/run/supervisord || mkdir -p /var/run/supervisord
 
-while ! [[ -f /certs/${MYHOSTNAME}/fullchain.pem ]] || ! [[ -f /certs/${MYHOSTNAME}/privkey.pem ]]; do echo "waiting for SSL certificate data"; sleep 1; done
+while ! [[ -f /certs/live/${MYHOSTNAME}/fullchain.pem ]] || ! [[ -f /certs/live/${MYHOSTNAME}/privkey.pem ]]; do echo "waiting for SSL certificate data"; sleep 1; done
 
 supervisord -n -c /etc/supervisord.conf
 

@@ -6,7 +6,7 @@ services:
     build: ./postfix/image
     restart: always
     volumes:
-      - letsencrypt_data:/certs:ro
+      - letsencrypt_conf:/certs:ro
       - postfix_spool:/var/spool/postfix
     tmpfs:
       - /run
@@ -28,7 +28,6 @@ services:
     restart: always
     volumes:
       - letsencrypt_conf:/etc/certbot
-      - letsencrypt_data:/certs
     tmpfs:
       - /run
     environment:
@@ -60,7 +59,7 @@ services:
     build: ./dovecot/image
     restart: always
     volumes:
-      - letsencrypt_data:/certs:ro
+      - letsencrypt_conf:/certs:ro
       - dovecot_data:/var/vmail
     tmpfs:
       - /run
@@ -183,7 +182,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - letsencrypt_data:/certs:ro
+      - letsencrypt_conf:/certs:ro
     logging:
       driver: "json-file"
       options:
@@ -202,7 +201,6 @@ services:
 volumes:
   dovecot_data:
   letsencrypt_conf:
-  letsencrypt_data:
   mysql_conf:
   mysql_data:
   postfix_spool:
