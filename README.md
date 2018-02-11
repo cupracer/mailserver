@@ -21,7 +21,6 @@ docker-compose up -d haproxy letsencrypt
 * create a certificate:
 ```
 docker-compose exec letsencrypt bash
-rm -f /etc/certbot/cli.ini
 certbot certonly --webroot -w /srv/www/htdocs -d $MYHOSTNAME
 cp -vRL /etc/certbot/live/${MYHOSTNAME} /certs/
 ```
