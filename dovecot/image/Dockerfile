@@ -4,7 +4,16 @@ MAINTAINER Thomas Schulte <thomas@cupracer.de>
 RUN zypper --non-interactive ref \
 	&& zypper --non-interactive up \
 	&& zypper --non-interactive in \
-	dovecot22-backend-mysql
+		curl \
+		dovecot22-backend-mysql
+
+# We need "rspamc" and therefore need the whole "rspamd" package :-(
+
+RUN rpm --import https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/repodata/repomd.xml.key \
+	&& zypper ar --refresh https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/server:mail.repo \
+	&& zypper --non-interactive ref \
+	&& zypper --non-interactive in \
+		rspamd
 
 COPY target/etc/dovecot/dovecot.conf /etc/dovecot/dovecot.conf
 COPY target/etc/dovecot/dovecot-sql.conf.ext /etc/dovecot/dovecot-sql.conf.ext
@@ -21,14 +30,16 @@ COPY target/etc/dovecot/conf.d/auth-sql.conf.ext /etc/dovecot/conf.d/auth-sql.co
 COPY target/etc/dovecot/conf.d/10-mail.conf /etc/dovecot/conf.d/10-mail.conf
 COPY target/etc/dovecot/conf.d/15-mailboxes.conf /etc/dovecot/conf.d/15-mailboxes.conf
 COPY target/etc/dovecot/conf.d/90-sieve.conf /etc/dovecot/conf.d/90-sieve.conf
+COPY target/etc/dovecot/conf.d/90-sieve-extprograms.conf /etc/dovecot/conf.d/90-sieve-extprograms.conf
 COPY target/etc/dovecot/conf.d/90-quota.conf /etc/dovecot/conf.d/90-quota.conf
 
 COPY target/start.sh /start.sh
 COPY target/spam-global.sieve /var/vmail/sieve/global/spam-global.sieve
-COPY target/learn-spam.sieve /var/vmail/sieve/global/learn-spam.sieve
-COPY target/learn-ham.sieve /var/vmail/sieve/global/learn-ham.sieve
+COPY target/learn-spam.sieve.tpl /usr/local/src/learn-spam.sieve.tpl
+COPY target/learn-ham.sieve.tpl /usr/local/src/learn-ham.sieve.tpl
+COPY target/rspamc-learn.sh /usr/bin/rspamc-learn.sh
 
-RUN chmod 755 /start.sh
+RUN chmod 755 /start.sh /usr/bin/rspamc-learn.sh
 
 CMD ["/start.sh"]
 
