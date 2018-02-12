@@ -33,17 +33,15 @@ COPY target/etc/dovecot/conf.d/90-sieve.conf /etc/dovecot/conf.d/90-sieve.conf
 COPY target/etc/dovecot/conf.d/90-sieve-extprograms.conf /etc/dovecot/conf.d/90-sieve-extprograms.conf
 COPY target/etc/dovecot/conf.d/90-quota.conf /etc/dovecot/conf.d/90-quota.conf
 
+RUN mkdir -p /usr/local/etc/sieve
+
 COPY target/start.sh /start.sh
-COPY target/spam-global.sieve /var/vmail/sieve/global/spam-global.sieve
+COPY target/spam-global.sieve /usr/local/etc/sieve/spam-global.sieve
 COPY target/learn-spam.sieve.tpl /usr/local/src/learn-spam.sieve.tpl
 COPY target/learn-ham.sieve.tpl /usr/local/src/learn-ham.sieve.tpl
-COPY target/rspamc-learn.sh /usr/bin/rspamc-learn.sh
+COPY target/rspamc-learn.sh /usr/local/bin/rspamc-learn.sh
 
-RUN chmod 755 /start.sh /usr/bin/rspamc-learn.sh
-
-CMD ["/start.sh"]
-
-EXPOSE 24 143 993 3659 4190 10143 10144 12340
+RUN chmod 755 /start.sh /usr/local/bin/rspamc-learn.sh
 
 RUN groupadd -r vmail \
 	&& useradd -g vmail -d /var/vmail -s /bin/false vmail \
@@ -51,3 +49,8 @@ RUN groupadd -r vmail \
 	&& chown -R vmail: /var/vmail \
 	&& chmod -R 770 /var/vmail
 
+RUN chown vmail: /usr/local/etc/sieve
+
+CMD ["/start.sh"]
+
+EXPOSE 24 143 993 3659 4190 10143 10144 12340
