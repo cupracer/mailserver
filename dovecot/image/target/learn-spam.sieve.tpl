@@ -1,2 +1,2 @@
 require ["vnd.dovecot.pipe", "copy", "imapsieve"];
-pipe :copy "rspamc -h rspamd -P RSPAMD_WEB_PASSWORD" ["learn_spam"];
+pipe :copy "/usr/local/bin/rspamc-learn.sh" ["learn_spam"];

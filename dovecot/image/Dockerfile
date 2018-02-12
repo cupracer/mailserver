@@ -30,14 +30,16 @@ COPY target/etc/dovecot/conf.d/auth-sql.conf.ext /etc/dovecot/conf.d/auth-sql.co
 COPY target/etc/dovecot/conf.d/10-mail.conf /etc/dovecot/conf.d/10-mail.conf
 COPY target/etc/dovecot/conf.d/15-mailboxes.conf /etc/dovecot/conf.d/15-mailboxes.conf
 COPY target/etc/dovecot/conf.d/90-sieve.conf /etc/dovecot/conf.d/90-sieve.conf
+COPY target/etc/dovecot/conf.d/90-sieve-extprograms.conf /etc/dovecot/conf.d/90-sieve-extprograms.conf
 COPY target/etc/dovecot/conf.d/90-quota.conf /etc/dovecot/conf.d/90-quota.conf
 
 COPY target/start.sh /start.sh
 COPY target/spam-global.sieve /var/vmail/sieve/global/spam-global.sieve
-COPY target/learn-spam.sieve.tpl /var/vmail/sieve/global/learn-spam.sieve.tpl
-COPY target/learn-ham.sieve.tpl /var/vmail/sieve/global/learn-ham.sieve.tpl
+COPY target/learn-spam.sieve.tpl /usr/local/src/learn-spam.sieve.tpl
+COPY target/learn-ham.sieve.tpl /usr/local/src/learn-ham.sieve.tpl
+COPY target/rspamc-learn.sh /usr/bin/rspamc-learn.sh
 
-RUN chmod 755 /start.sh
+RUN chmod 755 /start.sh /usr/bin/rspamc-learn.sh
 
 CMD ["/start.sh"]
 
