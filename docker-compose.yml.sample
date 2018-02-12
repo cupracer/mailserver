@@ -121,6 +121,7 @@ services:
     environment:
       MYHOSTNAME: ${MYHOSTNAME:-mail.example.de}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-secret}
+      SETUP_PASSWORD: ${POSTFIXADMIN_SETUP_PASSWORD:-secret}
     logging:
       driver: "json-file"
       options:

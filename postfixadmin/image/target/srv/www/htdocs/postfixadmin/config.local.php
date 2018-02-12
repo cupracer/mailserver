@@ -20,6 +20,3 @@ $CONF['default_aliases'] = array (
 $CONF['used_quotas'] = 'YES';
 $CONF['quota'] = 'YES';
 $CONF['new_quota_table'] = 'YES';
-
-$CONF['setup_password'] = 'd0aa80e46bb3ef8c1eaae28d2fb8c9c5:732576f1b8f41295e120aa382fdbbd6f4390dc0f';
-
