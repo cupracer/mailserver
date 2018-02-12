@@ -69,6 +69,7 @@ services:
     environment:
       MYHOSTNAME: ${MYHOSTNAME:-mail.example.de}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-secret}
+      RSPAMD_WEB_PASSWORD: ${RSPAMD_WEB_PASSWORD:-secret}
     logging:
       driver: "json-file"
       options:
@@ -83,6 +84,8 @@ services:
     depends_on:
       - clamav
       - redis
+    environment:
+      RSPAMD_WEB_PASSWORD: ${RSPAMD_WEB_PASSWORD:-secret}
     logging:
       driver: "json-file"
       options:

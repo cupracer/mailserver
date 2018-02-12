@@ -25,8 +25,8 @@ COPY target/etc/dovecot/conf.d/90-quota.conf /etc/dovecot/conf.d/90-quota.conf
 
 COPY target/start.sh /start.sh
 COPY target/spam-global.sieve /var/vmail/sieve/global/spam-global.sieve
-COPY target/learn-spam.sieve /var/vmail/sieve/global/learn-spam.sieve
-COPY target/learn-ham.sieve /var/vmail/sieve/global/learn-ham.sieve
+COPY target/learn-spam.sieve.tpl /var/vmail/sieve/global/learn-spam.sieve.tpl
+COPY target/learn-ham.sieve.tpl /var/vmail/sieve/global/learn-ham.sieve.tpl
 
 RUN chmod 755 /start.sh
 
