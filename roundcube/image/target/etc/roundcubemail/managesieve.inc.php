@@ -10,7 +10,7 @@ $config['managesieve_port'] = 4190;
 // %n - http hostname ($_SERVER['SERVER_NAME'])
 // %d - domain (http hostname without the first part)
 // For example %n = mail.domain.tld, %d = domain.tld
-$config['managesieve_host'] = '%h';
+$config['managesieve_host'] = 'dovecot';
 
 // authentication method. Can be CRAM-MD5, DIGEST-MD5, PLAIN, LOGIN, EXTERNAL
 // or none. Optional, defaults to best method supported by server.
