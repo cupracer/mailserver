@@ -15,5 +15,5 @@ else
 	sed -i "s/^password =.*/password = \"${RSPAMD_WEB_PASSWORD_ENCRYPTED}\"/" /etc/rspamd/local.d/worker-controller.inc
 fi
 
-/usr/bin/rspamd -c /etc/rspamd/rspamd.conf -f -u vmail -g vmail
+/usr/bin/rspamd -c /etc/rspamd/rspamd.conf -f -u _rspamd -g _rspamd
 
