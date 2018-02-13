@@ -13,9 +13,6 @@ RUN zypper --non-interactive ref \
 	&& zypper --non-interactive in \
 		rspamd
 
-RUN groupadd -r vmail \
-	&& useradd -g vmail -m -s /bin/false vmail
-
 COPY target/etc/rspamd/local.d/rspamd.conf.local /etc/rspamd/local.d/rspamd.conf.local
 COPY target/etc/rspamd/local.d/worker-controller.inc /etc/rspamd/local.d/worker-controller.inc
 COPY target/etc/rspamd/local.d/worker-proxy.inc /etc/rspamd/local.d/worker-proxy.inc
