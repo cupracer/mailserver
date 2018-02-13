@@ -37,8 +37,8 @@ RUN mkdir -p /usr/local/etc/sieve
 
 COPY target/start.sh /start.sh
 COPY target/spam-global.sieve /usr/local/etc/sieve/spam-global.sieve
-COPY target/learn-spam.sieve.tpl /usr/local/src/learn-spam.sieve.tpl
-COPY target/learn-ham.sieve.tpl /usr/local/src/learn-ham.sieve.tpl
+COPY target/learn-spam.sieve /usr/local/etc/sieve/learn-spam.sieve
+COPY target/learn-ham.sieve /usr/local/etc/sieve/learn-ham.sieve
 COPY target/rspamc-learn.sh /usr/local/bin/rspamc-learn.sh
 
 RUN chmod 755 /start.sh /usr/local/bin/rspamc-learn.sh
