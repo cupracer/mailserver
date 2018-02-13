@@ -195,6 +195,10 @@ services:
       options:
         max-size: "5m"
         max-file: "10"
+    networks:
+      default:
+        aliases:
+          - ${MYHOSTNAME:-mail.example.de}
 
 #  ipv6nat:
 #    image: robbertkl/ipv6nat
