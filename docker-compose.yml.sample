@@ -86,6 +86,7 @@ services:
       - redis
     environment:
       RSPAMD_WEB_PASSWORD: ${RSPAMD_WEB_PASSWORD:-secret}
+    hostname: rspamd
     logging:
       driver: "json-file"
       options:
