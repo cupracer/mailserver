@@ -79,6 +79,8 @@ services:
   rspamd:
     build: ./rspamd/image
     restart: always
+    volumes:
+      - rspamd_data:/var/lib/rspamd
     tmpfs:
       - /run
     depends_on:
@@ -212,3 +214,4 @@ volumes:
   redis_data:
   roundcube-mysql_conf:
   roundcube-mysql_data:
+  rspamd_data:
