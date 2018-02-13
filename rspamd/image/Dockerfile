@@ -14,12 +14,14 @@ RUN zypper --non-interactive ref \
 RUN groupadd -r vmail \
 	&& useradd -g vmail -m -s /bin/false vmail
 
+COPY target/etc/rspamd/local.d/rspamd.conf.local /etc/rspamd/local.d/rspamd.conf.local
 COPY target/etc/rspamd/local.d/worker-controller.inc /etc/rspamd/local.d/worker-controller.inc
 COPY target/etc/rspamd/local.d/worker-proxy.inc /etc/rspamd/local.d/worker-proxy.inc
 COPY target/etc/rspamd/local.d/logging.inc /etc/rspamd/local.d/logging.inc
 COPY target/etc/rspamd/local.d/milter_headers.conf /etc/rspamd/local.d/milter_headers.conf
 COPY target/etc/rspamd/local.d/classifier-bayes.conf /etc/rspamd/local.d/classifier-bayes.conf
 COPY target/etc/rspamd/local.d/redis.conf /etc/rspamd/local.d/redis.conf
+COPY target/etc/rspamd/local.d/statistics.conf /etc/rspamd/local.d/statistics.conf
 COPY target/etc/rspamd/local.d/antivirus.conf /etc/rspamd/local.d/antivirus.conf
 
 COPY target/start.sh /start.sh
