@@ -2,5 +2,5 @@ user = app
 password = secret
 hosts = mysql
 dbname = app
-query = SELECT goto FROM alias WHERE address='%s' AND active = '1'
+query = SELECT username AS allowedUser FROM mailbox WHERE username='%s' AND active = 1 UNION SELECT goto FROM alias WHERE address='%s' AND active = 1
 #expansion_limit = 100
