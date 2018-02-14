@@ -7,6 +7,7 @@ RUN zypper --non-interactive ref \
 		php5-fileinfo \
 		php5-intl \
 		php5-zip \
+		pwgen \
 		roundcubemail
 
 RUN ln -sf /dev/stdout /var/log/apache2/access_log \
