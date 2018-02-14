@@ -13,6 +13,10 @@ RUN zypper --non-interactive ref \
 	&& zypper --non-interactive in \
 		rspamd
 
+RUN	mkdir -p /usr/local/etc/dkim \
+	&& chown -R _rspamd: /usr/local/etc/dkim \
+    && chmod -R 770 /usr/local/etc/dkim
+
 COPY target/etc/rspamd/local.d/rspamd.conf.local /etc/rspamd/local.d/rspamd.conf.local
 COPY target/etc/rspamd/local.d/worker-controller.inc /etc/rspamd/local.d/worker-controller.inc
 COPY target/etc/rspamd/local.d/worker-proxy.inc /etc/rspamd/local.d/worker-proxy.inc
@@ -22,6 +26,8 @@ COPY target/etc/rspamd/local.d/classifier-bayes.conf /etc/rspamd/local.d/classif
 COPY target/etc/rspamd/local.d/redis.conf /etc/rspamd/local.d/redis.conf
 COPY target/etc/rspamd/local.d/statistics.conf /etc/rspamd/local.d/statistics.conf
 COPY target/etc/rspamd/local.d/antivirus.conf /etc/rspamd/local.d/antivirus.conf
+COPY target/usr/local/src/dkim_signing.conf.tpl /usr/local/src/dkim_signing.conf.tpl 
+COPY target/usr/local/src/arc.conf.tpl /usr/local/src/arc.conf.tpl
 
 COPY target/start.sh /start.sh
 
