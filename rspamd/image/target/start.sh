@@ -41,7 +41,7 @@ if [ "${RSPAMD_USE_DKIM}" == "true" ]; then
 
 	cat /usr/local/src/dkim_signing.conf.tpl | sed -e "s/RSPAMD_DKIM_NAME/${RSPAMD_DKIM_NAME}/" > /etc/rspamd/local.d/dkim_signing.conf
 
-	if [ "${RSPAMD_USE_DMARC}" == "true" ]; then
+	if [ "${RSPAMD_USE_ARC}" == "true" ]; then
 		cat /usr/local/src/arc.conf.tpl | sed -e "s/RSPAMD_DKIM_NAME/${RSPAMD_DKIM_NAME}/" > /etc/rspamd/local.d/arc.conf
 	fi
 fi
