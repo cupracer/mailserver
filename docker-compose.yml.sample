@@ -142,6 +142,7 @@ services:
     environment:
       MYHOSTNAME: ${MYHOSTNAME:-mail.example.de}
       MYSQL_PASSWORD: ${ROUNDCUBE_MYSQL_PASSWORD:-secret}
+      ENABLE_INSTALLER: ${ROUNDCUBE_ENABLE_INSTALLER:-false}
     depends_on:
       - roundcube-mysql
     logging:

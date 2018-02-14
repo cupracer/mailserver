@@ -87,3 +87,6 @@ $config['skin'] = 'larry';
 
 // disables logging in a container file
 $config['log_driver'] = 'syslog';
+
+// installer mode
+$config['enable_installer'] = false;
