@@ -81,6 +81,7 @@ services:
     restart: always
     volumes:
       - rspamd_data:/var/lib/rspamd
+      - rspamd_dkim:/usr/local/etc/dkim
     tmpfs:
       - /run
     depends_on:
@@ -88,6 +89,9 @@ services:
       - redis
     environment:
       RSPAMD_WEB_PASSWORD: ${RSPAMD_WEB_PASSWORD:-secret}
+      RSPAMD_USE_DKIM: ${RSPAMD_USE_DKIM:-false}
+      RSPAMD_USE_DMARC: ${RSPAMD_USE_DMARC:-false}
+      RSPAMD_DKIM_NAME: ${RSPAMD_DKIM_NAME:-default}
     hostname: rspamd
     logging:
       driver: "json-file"
@@ -220,3 +224,4 @@ volumes:
   roundcube-mysql_conf:
   roundcube-mysql_data:
   rspamd_data:
+  rspamd_dkim:
