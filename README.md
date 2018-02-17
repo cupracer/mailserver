@@ -4,8 +4,8 @@
 
 * prepare config files:
 ```
-cp docker-compose.yml.sample docker-compose.yml
-cp .env.sample .env
+cp docker-compose.yml.dist docker-compose.yml
+cp env.dist .env
 ```
 
 * edit variables in .env
@@ -20,9 +20,7 @@ docker-compose up -d
 
 * create a certificate:
 ```
-docker-compose exec letsencrypt bash
-certbot certonly --standalone -d $MYHOSTNAME
-/usr/local/sbin/restart-containers.py
+docker-compose exec letsencrypt bash -c 'certbot certonly --standalone -d $MYHOSTNAME --deploy-hook /usr/local/sbin/restart-containers.py'
 ```
 
 ## postfixadmin
