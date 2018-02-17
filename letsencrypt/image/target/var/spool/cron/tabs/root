@@ -2,3 +2,5 @@ SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin
 
 0	3	*	*	*	certbot renew --renew-hook /usr/local/sbin/restart-containers.py
+
+# newline required for cron
