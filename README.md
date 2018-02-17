@@ -21,8 +21,8 @@ docker-compose up -d
 * create a certificate:
 ```
 docker-compose exec letsencrypt bash
-certbot certonly --webroot -w /srv/www/htdocs -d $MYHOSTNAME
-docker-compose restart haproxy
+certbot certonly --standalone -d $MYHOSTNAME
+/usr/local/sbin/restart-containers.py
 ```
 
 ## postfixadmin

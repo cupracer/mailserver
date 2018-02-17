@@ -28,6 +28,7 @@ services:
     restart: always
     volumes:
       - letsencrypt_conf:/etc/certbot
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     tmpfs:
       - /run
     environment:
