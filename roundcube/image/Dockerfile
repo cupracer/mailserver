@@ -14,6 +14,13 @@ RUN ln -sf /dev/stdout /var/log/apache2/access_log \
 	&& ln -sf /dev/stderr /var/log/apache2/error_log
 
 RUN /usr/sbin/a2enmod php5
+RUN /usr/sbin/a2enmod remoteip
+RUN /usr/sbin/a2enmod logio
+
+COPY target/etc/apache2/conf.d/https.conf /etc/apache2/conf.d/https.conf
+COPY target/etc/apache2/conf.d/logging.conf /etc/apache2/conf.d/logging.conf
+COPY target/etc/apache2/conf.d/remoteip.conf /etc/apache2/conf.d/remoteip.conf
+COPY target/etc/apache2/trusted-proxies.txt /etc/apache2/trusted-proxies.txt
 
 COPY target/etc/roundcubemail/config.inc.php /etc/roundcubemail/config.inc.php
 COPY target/etc/roundcubemail/managesieve.inc.php /etc/roundcubemail/managesieve.inc.php
