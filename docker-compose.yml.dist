@@ -92,7 +92,7 @@ services:
       RSPAMD_WEB_PASSWORD: ${RSPAMD_WEB_PASSWORD:-secret}
       RSPAMD_USE_DKIM: ${RSPAMD_USE_DKIM:-false}
       RSPAMD_USE_ARC: ${RSPAMD_USE_ARC:-false}
-      RSPAMD_DKIM_NAME: ${RSPAMD_DKIM_NAME:-default}
+      RSPAMD_DKIM_NAME: default
     hostname: rspamd
     logging:
       driver: "json-file"
