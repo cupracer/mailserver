@@ -2,17 +2,18 @@ FROM opensuse:latest
 MAINTAINER Thomas Schulte <thomas@cupracer.de>
 
 RUN zypper --non-interactive ref \
-	&& zypper --non-interactive up \
-    && zypper --non-interactive in \
+	&& zypper --non-interactive up --no-recommends \
+    && zypper --non-interactive in --no-recommends \
         curl \
 	&& rpm --import https://download.opensuse.org/repositories/devel:/languages:/python/openSUSE_Leap_42.3/repodata/repomd.xml.key \
 	&& zypper ar --refresh https://download.opensuse.org/repositories/devel:/languages:/python/openSUSE_Leap_42.3/devel:languages:python.repo \
 	&& zypper --non-interactive ref \
-	&& zypper --non-interactive in \
+	&& zypper --non-interactive in --no-recommends \
 		postfix \
 		postfix-mysql \
 		rsyslog \
-		supervisor
+		supervisor \
+	&& zypper clean -a
 
 COPY target/etc/supervisord.conf /etc/supervisord.conf
 COPY target/start.sh /start.sh

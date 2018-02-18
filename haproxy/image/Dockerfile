@@ -2,10 +2,11 @@ FROM opensuse:latest
 MAINTAINER Thomas Schulte <thomas@cupracer.de>
 
 RUN zypper --non-interactive ref \
-	&& zypper --non-interactive up \
-	&& zypper --non-interactive in \
+	&& zypper --non-interactive up --no-recommends \
+	&& zypper --non-interactive in --no-recommends \
 		haproxy \
-    	whois
+    	whois \
+	&& zypper clean -a
 
 COPY target/etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg
 COPY target/etc/haproxy/haproxy-ssl.cfg /etc/haproxy/haproxy-ssl.cfg

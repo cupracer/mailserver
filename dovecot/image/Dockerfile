@@ -1,19 +1,19 @@
 FROM opensuse:latest
 MAINTAINER Thomas Schulte <thomas@cupracer.de>
 
-RUN zypper --non-interactive ref \
-	&& zypper --non-interactive up \
-	&& zypper --non-interactive in \
-		curl \
-		dovecot22-backend-mysql
-
 # We need "rspamc" and therefore need the whole "rspamd" package :-(
 
-RUN rpm --import https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/repodata/repomd.xml.key \
+RUN zypper --non-interactive ref \
+	&& zypper --non-interactive up --no-recommends \
+	&& zypper --non-interactive in --no-recommends \
+		curl \
+		dovecot22-backend-mysql \
+	&& rpm --import https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/repodata/repomd.xml.key \
 	&& zypper ar --refresh https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/server:mail.repo \
 	&& zypper --non-interactive ref \
-	&& zypper --non-interactive in \
-		rspamd
+	&& zypper --non-interactive in --no-recommends \
+		rspamd \
+	&& zypper clean -a
 
 COPY target/etc/dovecot/dovecot.conf /etc/dovecot/dovecot.conf
 COPY target/etc/dovecot/dovecot-sql.conf.ext /etc/dovecot/dovecot-sql.conf.ext

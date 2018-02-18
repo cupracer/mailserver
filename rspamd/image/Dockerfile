@@ -2,16 +2,17 @@ FROM opensuse:latest
 MAINTAINER Thomas Schulte <thomas@cupracer.de>
 
 RUN zypper --non-interactive ref \
-	&& zypper --non-interactive up \
-    && zypper --non-interactive in \
+	&& zypper --non-interactive up --no-recommends \
+    && zypper --non-interactive in --no-recommends \
         curl \
 #	&& rpm --import https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/repodata/repomd.xml.key \
 	&& rpm --import https://download.opensuse.org/repositories/home:/TERROR-FX:/branches:/server:/mail/openSUSE_Leap_42.3/repodata/repomd.xml.key \
 #	&& zypper ar --refresh https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/server:mail.repo \
 	&& zypper ar --refresh https://download.opensuse.org/repositories/home:/TERROR-FX:/branches:/server:/mail/openSUSE_Leap_42.3/home:TERROR-FX:branches:server:mail.repo \
 	&& zypper --non-interactive ref \
-	&& zypper --non-interactive in \
-		rspamd
+	&& zypper --non-interactive in --no-recommends \
+		rspamd \
+	&& zypper clean -a
 
 RUN	mkdir -p /usr/local/etc/dkim \
 	&& chown -R _rspamd: /usr/local/etc/dkim \

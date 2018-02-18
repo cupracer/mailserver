@@ -2,10 +2,11 @@ FROM opensuse:latest
 MAINTAINER Thomas Schulte <thomas@cupracer.de>
 
 RUN zypper --non-interactive ref \
-	&& zypper --non-interactive up \
-	&& zypper --non-interactive in \
+	&& zypper --non-interactive up --no-recommends \
+	&& zypper --non-interactive in --no-recommends \
 		php7-imap \
-		postfixadmin
+		postfixadmin \
+	&& zypper clean -a
 
 RUN ln -sf /dev/stdout /var/log/apache2/access_log \
 	&& ln -sf /dev/stderr /var/log/apache2/error_log

@@ -2,9 +2,10 @@ FROM opensuse:latest
 MAINTAINER Thomas Schulte <thomas@cupracer.de>
 
 RUN zypper --non-interactive ref \
-	&& zypper --non-interactive up \
-	&& zypper --non-interactive in \
-	clamav
+	&& zypper --non-interactive up --no-recommends \
+	&& zypper --non-interactive in --no-recommends \
+	clamav \
+	&& zypper clean -a
 
 COPY target/etc/clamd.conf /etc/clamd.conf
 COPY target/etc/freshclam.conf /etc/freshclam.conf
