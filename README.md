@@ -67,35 +67,3 @@ abuse, hostmaster, postmaster, webmaster --> admin@MYHOSTNAME
 optional:
 * add alias with different domain to a mailbox...
 
-## RoundCube
-
-```
-docker-compose exec roundcube bash
-```
-
-* Add 
-```
-$config['enable_installer'] = true;
-```
-to /etc/roundcubemail/config.inc.php
-
-* Visit:
-```
-https://MYHOSTNAME/roundcubemail/installer/
-```
-
-* Click "next"
-
-* Optional: check IMAP/SMTP
-
-* disable installer mode:
-```
-docker-compose exec roundcube bash
-```
-
-Remove
-```
-$config['enable_installer'] = true;
-```
-from /etc/roundcubemail/config.inc.php
-
