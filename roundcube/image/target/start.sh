@@ -17,9 +17,13 @@ sed -i "s/.*config.*smtp_server.*/\$config\[\'smtp_server\'\] = \'tls:\/\/${MYHO
 sed -i "s/.*config.*default_host.*/\$config\[\'default_host\'\] = \'tls:\/\/${MYHOSTNAME//\//\\/}\'\;/" /etc/roundcubemail/config.inc.php
 sed -i "s/.*config.*des_key.*/\$config\[\'des_key\'\] = \'${DES_KEY//\//\\/}\'\;/" /etc/roundcubemail/config.inc.php
 
-if [ "${ENABLE_INSTALLER}" == "true" ]; then
-	echo "enabling installer mode"
-	sed -i "s/.*config.*enable_installer.*/\$config\[\'enable_installer\'\] = true\;/" /etc/roundcubemail/config.inc.php
-fi
+until nc -z roundcube-mysql 3306
+do
+	echo "waiting for DB"
+	sleep 3
+done
+
+echo "* running initdb.sh" && /srv/www/roundcubemail/bin/initdb.sh --dir /srv/www/roundcubemail/SQL
+echo "* running updatedb.sh" && /srv/www/roundcubemail/bin/updatedb.sh --dir /srv/www/roundcubemail/SQL --package roundcube
 
 /usr/sbin/start_apache2 -DFOREGROUND -k start

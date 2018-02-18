@@ -147,7 +147,6 @@ services:
     environment:
       MYHOSTNAME: ${MYHOSTNAME:-mail.example.de}
       MYSQL_PASSWORD: ${ROUNDCUBE_MYSQL_PASSWORD:-secret}
-      ENABLE_INSTALLER: ${ROUNDCUBE_ENABLE_INSTALLER:-false}
     depends_on:
       - roundcube-mysql
     logging:
@@ -162,7 +161,6 @@ services:
     volumes:
       - roundcube-mysql_conf:/etc/mysql/conf.d
       - roundcube-mysql_data:/var/lib/mysql
-      - ./roundcube-mysql/init:/docker-entrypoint-initdb.d:ro
     environment:
       MYSQL_ROOT_PASSWORD: ${ROUNDCUBE_MYSQL_ROOT_PASSWORD:-secret}
       MYSQL_PASSWORD: ${ROUNDCUBE_MYSQL_PASSWORD:-secret}

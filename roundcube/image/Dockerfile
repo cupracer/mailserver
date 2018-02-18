@@ -4,6 +4,12 @@ MAINTAINER Thomas Schulte <thomas@cupracer.de>
 RUN zypper --non-interactive ref \
 	&& zypper --non-interactive up \
 	&& zypper --non-interactive in \
+		curl \
+	&& rpm --import https://download.opensuse.org/repositories/server:/php:/applications/openSUSE_Leap_42.3/repodata/repomd.xml.key \
+	&& zypper ar --refresh https://download.opensuse.org/repositories/server:/php:/applications/openSUSE_Leap_42.3/server:php:applications.repo \
+	&& zypper --non-interactive ref \
+	&& zypper --non-interactive in \
+		netcat-openbsd \
 		php5-fileinfo \
 		php5-intl \
 		php5-zip \
