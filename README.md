@@ -10,6 +10,38 @@ cp env.dist .env
 
 * edit variables in .env
 
+```
+# Fully qualified domain name (FQDN) of the mail server instance
+MYHOSTNAME=mail.example.de
+
+# MySQ root password for shared Dovecot/Postfix/PostfixAdmin database
+MYSQL_ROOT_PASSWORD=secret
+
+# MySQ app password used by Dovecot/Postfix/PostfixAdmin
+MYSQL_PASSWORD=secret
+
+# MySQ root password for Roundcube database
+ROUNDCUBE_MYSQL_ROOT_PASSWORD=secret
+
+# MySQ app password used by Roundcube
+ROUNDCUBE_MYSQL_PASSWORD=secret
+
+# PostfixAdmin setup password to create admin users
+POSTFIXADMIN_SETUP_PASSWORD=secret
+
+# Password to access Rspamd web GUI
+RSPAMD_WEB_PASSWORD=secret
+
+# Use DKIM feature in Rspamd
+RSPAMD_USE_DKIM=false
+
+# Use ARC feature in Rspamd (requires RSPAMD_USE_DKIM)
+RSPAMD_USE_ARC=false
+
+# Rspamd and PostfixAdmin are secured by HTTP basic auth (user "admin")
+WEB_PASSWORD=secret
+```
+
 ## Run (setup)
 
 ```
