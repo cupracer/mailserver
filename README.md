@@ -1,7 +1,5 @@
 # cupracer/mailserver
 
-[![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg?style=plastic)]()
-
 This is a dockerized full-stack e-mail server. It is primarily based on openSUSE Leap (except MariaDB and Redis) and relies on openSUSE packages. It is prepared to be run as a Docker Compose project and uses a ready-to-use configuration which I built according to my preferences. Nevertheless, please feel free to suggest improvements or to change whatever you like in your personal setup.
 
 ## Features / Technologies
