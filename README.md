@@ -1,15 +1,52 @@
-# mailserver
+# cupracer/mailserver
 
-## Initialization
+This is a dockerized full-stack e-mail server. It is primarily based on openSUSE Leap images (except MariaDB and Redis) and relies on SUSE packages. It is prepared to be run as a Docker Compose project and uses a ready-to-use configuration which I built according to my preferences. Nevertheless, please feel free to suggest improvements or to change whatever you like in your personal setup.
 
-* prepare config files:
+## Features / Technologies
+
+* Postfix
+  - MariaDB backend
+  - SMTP/Submission (incl. TLS support)
+  - Postscreen
+* Dovecot
+  - MariaDB backend
+  - IMAP (incl. TLS support)
+  - LMTP
+  - Quota
+  - Sieve
+* Rspamd
+  - Redis backend
+  - ClamAV
+  - DKIM
+  - ARC
+  - Greylisting
+* Postfix Admin
+  - MariaDB backend
+* Roundcube Webmail
+  - MariaDB backend
+* Let's Encrypt
+* HAProxy
+  - SSL termination
+
+## Why?
+
+tbd.
+
+## Install
+
+* Clone this project to a directory with a desired project name:
 ```
+git clone https://github.com/cupracer/mailserver.git /opt/docker/compose/mail
+```
+
+* Prepare config files:
+```
+cd /opt/docker/compose/mail
 cp docker-compose.yml.dist docker-compose.yml
 cp env.dist .env
 ```
 
-* edit variables in .env
-
+* Edit variables in .env (it's strongly advised to change all passwords!). Following are the defaults:
 ```
 # Fully qualified domain name (FQDN) of the mail server instance
 MYHOSTNAME=mail.example.de
@@ -42,27 +79,23 @@ RSPAMD_USE_ARC=false
 WEB_PASSWORD=secret
 ```
 
-## Run (setup)
-
+* Star the project for the first time:
 ```
 docker-compose up -d 
 ```
 
-## letsencrypt
-
-* create a certificate:
+* Create an SSL certificate with Let's Encrypt:
 ```
 docker-compose exec letsencrypt bash -c 'certbot certonly --standalone -d $MYHOSTNAME --deploy-hook /usr/local/sbin/restart-containers.py'
 ```
+Please continue only if this was successful!
 
-## postfixadmin
+* Setup PostfixAdmin
 
-* visit: https://MYHOSTNAME/postfixadmin/setup.php (to create db and admin user)
-* create admin user i.e. "admin@MYHOSTNAME"
-
-* Login
-
-* create new Domain:
+  - Visit: https://MYHOSTNAME/postfixadmin/setup.php (to create db and admin user)
+  - Create an admin user i.e. "admin@MYHOSTNAME"
+  - Login as admin user: https://MYHOSTNAME/postfixadmin/
+  - Create a new Domain for the FQDN of your mail server:
 ```
 Domain: MYHOSTNAME
 Description: default
@@ -74,28 +107,25 @@ is Backup MX: no
 active: yes
 add default aliases: yes
 ```
-
-* create domains as desired
-
-* add first mailbox for "main" user (admin):
+  - Create additional domains as desired
+  - Add a first mailbox for the admin user:
 ```
 User: USERNAME
 Domain: MYHOSTNAME
 ...
 ```
-
-* add alias for default domain:
+  - Add an alias for the default domain (FQDN of your mail server):
 ```
 Alias: admin
 Domain: MYHOSTNAME
-To: name of the first mailbox (admin)
+To: name of the first mailbox
 ```
-
-* change aliases of default domain:
+  - Change aliases of default domain:
 ```
 abuse, hostmaster, postmaster, webmaster --> admin@MYHOSTNAME
 ```
 
-optional:
-* add alias with different domain to a mailbox...
+* Visit https://MYHOSTNAME/roundcubemail/ and login with you mailbox credentials.
+* Visit https://MYHOSTNAME/rspamd/ to monitor Rspamd's activities.
+* (Hopefully) have fun!
 
