@@ -35,6 +35,7 @@ COPY target/usr/local/src/dkim_signing.conf.tpl /usr/local/src/dkim_signing.conf
 COPY target/usr/local/src/arc.conf.tpl /usr/local/src/arc.conf.tpl
 
 COPY target/start.sh /start.sh
+COPY target/info.sh /usr/local/bin/info.sh
 
-RUN chmod 755 /start.sh
+RUN chmod 755 /start.sh /usr/local/bin/info.sh
 

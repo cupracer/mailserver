@@ -128,5 +128,10 @@ abuse, hostmaster, postmaster, webmaster --> admin@MYHOSTNAME
 * Visit https://MYHOSTNAME/roundcubemail/ and login with you mailbox credentials.
 * Visit https://MYHOSTNAME/rspamd/ to monitor Rspamd's activities.
 
-(Hopefully) have fun!
+* If you decided to use DKIM, please run the following command to get you DKIM public key:
+```
+docker-compose exec rspamd bash -c 'info.sh'
+```
+
+Have fun!
 
