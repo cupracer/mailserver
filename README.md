@@ -1,6 +1,6 @@
 # cupracer/mailserver
 
-This is a dockerized full-stack e-mail server. It is primarily based on openSUSE Leap images (except MariaDB and Redis) and relies on SUSE packages. It is prepared to be run as a Docker Compose project and uses a ready-to-use configuration which I built according to my preferences. Nevertheless, please feel free to suggest improvements or to change whatever you like in your personal setup.
+This is a dockerized full-stack e-mail server. It is primarily based on openSUSE Leap (except MariaDB and Redis) and relies on openSUSE packages. It is prepared to be run as a Docker Compose project and uses a ready-to-use configuration which I built according to my preferences. Nevertheless, please feel free to suggest improvements or to change whatever you like in your personal setup.
 
 ## Features / Technologies
 
@@ -127,5 +127,6 @@ abuse, hostmaster, postmaster, webmaster --> admin@MYHOSTNAME
 
 * Visit https://MYHOSTNAME/roundcubemail/ and login with you mailbox credentials.
 * Visit https://MYHOSTNAME/rspamd/ to monitor Rspamd's activities.
-* (Hopefully) have fun!
+
+(Hopefully) have fun!
 
