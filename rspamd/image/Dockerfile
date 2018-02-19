@@ -1,5 +1,9 @@
-FROM opensuse:latest
-MAINTAINER Thomas Schulte <thomas@cupracer.de>
+FROM opensuse:42.3
+
+LABEL maintainer="Thomas Schulte <thomas@cupracer.de>"
+
+EXPOSE 11332 11334
+CMD ["/start.sh"]
 
 RUN zypper --non-interactive ref \
 	&& zypper --non-interactive up --no-recommends \
@@ -33,8 +37,4 @@ COPY target/usr/local/src/arc.conf.tpl /usr/local/src/arc.conf.tpl
 COPY target/start.sh /start.sh
 
 RUN chmod 755 /start.sh
-
-EXPOSE 11332 11334
-
-CMD ["/start.sh"]
 

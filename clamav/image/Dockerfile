@@ -1,5 +1,9 @@
-FROM opensuse:latest
-MAINTAINER Thomas Schulte <thomas@cupracer.de>
+FROM opensuse:42.3
+
+LABEL maintainer="Thomas Schulte <thomas@cupracer.de>"
+
+EXPOSE 3310
+CMD ["/start.sh"]
 
 RUN zypper --non-interactive ref \
 	&& zypper --non-interactive up --no-recommends \
@@ -13,8 +17,4 @@ COPY target/etc/freshclam.conf /etc/freshclam.conf
 COPY target/start.sh /start.sh
 
 RUN chmod 755 /start.sh
-
-EXPOSE 3310
-
-CMD ["/start.sh"]
 

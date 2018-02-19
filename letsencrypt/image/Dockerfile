@@ -1,6 +1,9 @@
-FROM opensuse
+FROM opensuse:42.3
 
-MAINTAINER Thomas Schulte <thomas@cupracer.de>
+LABEL maintainer="Thomas Schulte <thomas@cupracer.de>"
+
+EXPOSE 80
+CMD /usr/sbin/cron -n -x bit
 
 RUN zypper --non-interactive ref \
     && zypper --non-interactive up --no-recommends \
@@ -16,8 +19,4 @@ COPY target/var/spool/cron/tabs/root /var/spool/cron/tabs/root
 
 RUN chmod 755 /usr/local/sbin/restart-containers.py \
 	&& chmod 600 /var/spool/cron/tabs/root
-
-EXPOSE 80
-
-CMD /usr/sbin/cron -n -x bit
 

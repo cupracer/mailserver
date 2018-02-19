@@ -1,5 +1,9 @@
-FROM opensuse:latest
-MAINTAINER Thomas Schulte <thomas@cupracer.de>
+FROM opensuse:42.3
+
+LABEL maintainer="Thomas Schulte <thomas@cupracer.de>"
+
+EXPOSE 24 143 993 3659 4190 10143 10144 12340
+CMD ["/start.sh"]
 
 # We need "rspamc" and therefore need the whole "rspamd" package :-(
 
@@ -51,6 +55,3 @@ RUN groupadd -r vmail \
 
 RUN chown vmail: /usr/local/etc/sieve
 
-CMD ["/start.sh"]
-
-EXPOSE 24 143 993 3659 4190 10143 10144 12340

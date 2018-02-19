@@ -1,5 +1,9 @@
-FROM opensuse:latest
-MAINTAINER Thomas Schulte <thomas@cupracer.de>
+FROM opensuse:42.3
+
+LABEL maintainer="Thomas Schulte <thomas@cupracer.de>"
+
+EXPOSE 25 587
+CMD ["/start.sh"]
 
 RUN zypper --non-interactive ref \
 	&& zypper --non-interactive up --no-recommends \
@@ -37,8 +41,4 @@ COPY target/etc/postfix/sql/mysql_virtual_alias_maps.cf /etc/postfix/sql/mysql_v
 COPY target/etc/postfix/sql/mysql_virtual_domains_maps.cf /etc/postfix/sql/mysql_virtual_domains_maps.cf
 COPY target/etc/postfix/sql/mysql_virtual_mailbox_maps.cf /etc/postfix/sql/mysql_virtual_mailbox_maps.cf
 COPY target/etc/postfix/sql/mysql_virtual_sender_maps.cf /etc/postfix/sql/mysql_virtual_sender_maps.cf
-
-EXPOSE 25 587
-
-CMD ["/start.sh"]
 
