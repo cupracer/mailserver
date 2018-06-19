@@ -9,10 +9,8 @@ RUN zypper --non-interactive ref \
 	&& zypper --non-interactive up --no-recommends \
     && zypper --non-interactive in --no-recommends \
         curl \
-#	&& rpm --import https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/repodata/repomd.xml.key \
-	&& rpm --import https://download.opensuse.org/repositories/home:/TERROR-FX:/branches:/server:/mail/openSUSE_Leap_42.3/repodata/repomd.xml.key \
-#	&& zypper ar --refresh https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/server:mail.repo \
-	&& zypper ar --refresh https://download.opensuse.org/repositories/home:/TERROR-FX:/branches:/server:/mail/openSUSE_Leap_42.3/home:TERROR-FX:branches:server:mail.repo \
+	&& rpm --import https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/repodata/repomd.xml.key \
+	&& zypper ar --refresh https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/server:mail.repo \
 	&& zypper --non-interactive ref \
 	&& zypper --non-interactive in --no-recommends \
 		rspamd \
