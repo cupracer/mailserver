@@ -1,4 +1,4 @@
-FROM opensuse:42.3
+FROM opensuse/leap:15.0
 
 LABEL maintainer="Thomas Schulte <thomas@cupracer.de>"
 

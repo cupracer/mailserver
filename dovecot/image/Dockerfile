@@ -1,4 +1,4 @@
-FROM opensuse:42.3
+FROM opensuse/leap:15.0
 
 LABEL maintainer="Thomas Schulte <thomas@cupracer.de>"
 
@@ -12,8 +12,8 @@ RUN zypper --non-interactive ref \
 	&& zypper --non-interactive in --no-recommends \
 		curl \
 		dovecot22-backend-mysql \
-	&& rpm --import https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/repodata/repomd.xml.key \
-	&& zypper ar --refresh https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_42.3/server:mail.repo \
+	&& rpm --import https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_15.0/repodata/repomd.xml.key \
+	&& zypper ar --refresh https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_15.0/server:mail.repo \
 	&& zypper --non-interactive ref \
 	&& zypper --non-interactive in --no-recommends \
 		rspamd \
