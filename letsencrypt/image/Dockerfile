@@ -10,8 +10,9 @@ RUN zypper --non-interactive ref \
 	&& zypper --non-interactive in --no-recommends \
 		certbot \
 		cron \
-		python-docker-py \
-	&& zypper clean -a
+		python-docker-py
+
+RUN zypper clean -a
 
 COPY target/etc/certbot/cli.ini /etc/certbot/cli.ini
 COPY target/usr/local/sbin/restart-containers.py /usr/local/sbin/restart-containers.py
