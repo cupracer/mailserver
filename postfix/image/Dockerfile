@@ -8,17 +8,17 @@ CMD ["/start.sh"]
 RUN zypper --non-interactive ref \
 	&& zypper --non-interactive up --no-recommends \
     && zypper --non-interactive in --no-recommends \
-        curl \
-	&& rpm --import https://download.opensuse.org/repositories/Cloud:/OpenStack:/Master/openSUSE_Leap_15.0/repodata/repomd.xml.key \
-	&& zypper ar --refresh https://download.opensuse.org/repositories/Cloud:/OpenStack:/Master/openSUSE_Leap_15.0/Cloud:OpenStack:Master.repo \
-	&& zypper --non-interactive ref \
-	&& zypper --non-interactive in --no-recommends \
 		postfix \
 		postfix-mysql \
-		rsyslog \
+		rsyslog		
+
+RUN zypper --non-interactive --gpg-auto-import-keys ar --refresh https://download.opensuse.org/repositories/Cloud:/OpenStack:/Master/openSUSE_Leap_15.0/Cloud:OpenStack:Master.repo \
+	&& zypper --non-interactive --gpg-auto-import-keys ref \
+	&& zypper --non-interactive in --no-recommends \
 		python-setuptools \
-		python-supervisor \
-	&& zypper clean -a
+		python-supervisor
+
+RUN zypper clean -a
 
 COPY target/etc/supervisord.conf /etc/supervisord.conf
 COPY target/start.sh /start.sh
