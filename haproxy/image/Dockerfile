@@ -9,8 +9,9 @@ RUN zypper --non-interactive ref \
 	&& zypper --non-interactive up --no-recommends \
 	&& zypper --non-interactive in --no-recommends \
 		haproxy \
-    	whois \
-	&& zypper clean -a
+    	whois
+
+RUN zypper clean -a
 
 COPY target/etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg
 COPY target/etc/haproxy/haproxy-ssl.cfg /etc/haproxy/haproxy-ssl.cfg
