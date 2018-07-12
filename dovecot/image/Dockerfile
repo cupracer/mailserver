@@ -8,16 +8,15 @@ CMD ["/start.sh"]
 # We need "rspamc" and therefore need the whole "rspamd" package :-(
 
 RUN zypper --non-interactive ref \
-	&& zypper --non-interactive up --no-recommends \
+	&& zypper --non-interactive up --no-recommends
+
+RUN zypper --non-interactive --gpg-auto-import-keys ar --refresh https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_15.0/server:mail.repo \
+	&& zypper --non-interactive --gpg-auto-import-keys ref \
 	&& zypper --non-interactive in --no-recommends \
-		curl \
 		dovecot22-backend-mysql \
-	&& rpm --import https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_15.0/repodata/repomd.xml.key \
-	&& zypper ar --refresh https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_15.0/server:mail.repo \
-	&& zypper --non-interactive ref \
-	&& zypper --non-interactive in --no-recommends \
-		rspamd \
-	&& zypper clean -a
+		rspamd
+
+RUN zypper clean -a
 
 COPY target/etc/dovecot/dovecot.conf /etc/dovecot/dovecot.conf
 COPY target/etc/dovecot/dovecot-sql.conf.ext /etc/dovecot/dovecot-sql.conf.ext
