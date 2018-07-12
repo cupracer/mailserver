@@ -8,8 +8,9 @@ CMD ["/start.sh"]
 RUN zypper --non-interactive ref \
 	&& zypper --non-interactive up --no-recommends \
 	&& zypper --non-interactive in --no-recommends \
-	clamav \
-	&& zypper clean -a
+		clamav
+
+RUN zypper clean -a
 
 COPY target/etc/clamd.conf /etc/clamd.conf
 COPY target/etc/freshclam.conf /etc/freshclam.conf
