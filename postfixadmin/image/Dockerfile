@@ -8,6 +8,8 @@ CMD ["/start.sh"]
 RUN zypper --non-interactive ref \
 	&& zypper --non-interactive up --no-recommends
 
+# no php7-imap package for PHP 7.2 available in openSUSE Leap 15.0 (2018-07-11), so PHP 7.1 needs to be used:
+
 ENV PHP_REPO_ALIAS devel_languages_php_php71
 
 RUN zypper --non-interactive --gpg-auto-import-keys ar --refresh --name $PHP_REPO_ALIAS https://download.opensuse.org/repositories/devel:/languages:/php:/php71/openSUSE_Leap_15.0/devel:languages:php:php71.repo \
