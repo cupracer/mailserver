@@ -6,15 +6,14 @@ EXPOSE 11332 11334
 CMD ["/start.sh"]
 
 RUN zypper --non-interactive ref \
-	&& zypper --non-interactive up --no-recommends \
-    && zypper --non-interactive in --no-recommends \
-        curl \
-	&& rpm --import https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_15.0/repodata/repomd.xml.key \
-	&& zypper ar --refresh https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_15.0/server:mail.repo \
-	&& zypper --non-interactive ref \
+	&& zypper --non-interactive up --no-recommends
+
+RUN zypper --non-interactive --gpg-auto-import-keys ar --refresh https://download.opensuse.org/repositories/server:/mail/openSUSE_Leap_15.0/server:mail.repo \
+	&& zypper --non-interactive --gpg-auto-import-keys ref \
 	&& zypper --non-interactive in --no-recommends \
-		rspamd \
-	&& zypper clean -a
+		rspamd
+
+RUN zypper clean -a
 
 RUN	mkdir -p /usr/local/etc/dkim \
 	&& chown -R _rspamd: /usr/local/etc/dkim \
