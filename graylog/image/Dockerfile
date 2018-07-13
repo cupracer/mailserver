@@ -3,6 +3,7 @@ FROM graylog/graylog:3.0
 LABEL maintainer="Thomas Schulte <thomas@cupracer.de>"
 
 COPY target/udp-input-gelf.json /usr/share/graylog/data/contentpacks
+COPY target/dashboard-containers.json /usr/share/graylog/data/contentpacks
 
-ENV GRAYLOG_CONTENT_PACKS_AUTO_LOAD udp-input-gelf.json
+ENV GRAYLOG_CONTENT_PACKS_AUTO_LOAD udp-input-gelf.json,dashboard-containers.json
 
