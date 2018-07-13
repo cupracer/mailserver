@@ -27,6 +27,9 @@ This is a dockerized full-stack e-mail server. It is primarily based on openSUSE
 * Let's Encrypt
 * HAProxy
   - SSL termination
+* Graylog
+  - MongoDB
+  - Elasticsearch
 
 ## Why?
 
@@ -88,6 +91,7 @@ docker-compose up -d
 ```
 docker-compose exec letsencrypt bash -c 'certbot certonly --standalone -d $MYHOSTNAME --deploy-hook /usr/local/sbin/restart-containers.py'
 ```
+
 Please continue only if this was successful!
 
 * Setup PostfixAdmin
@@ -107,6 +111,7 @@ is Backup MX: no
 active: yes
 add default aliases: yes
 ```
+
   - Create additional domains as desired
   - Add a first mailbox for the admin user:
 ```
@@ -114,12 +119,14 @@ User: USERNAME
 Domain: MYHOSTNAME
 ...
 ```
+
   - Add an alias for the default domain (FQDN of your mail server):
 ```
 Alias: admin
 Domain: MYHOSTNAME
 To: name of the first mailbox
 ```
+
   - Change aliases of default domain:
 ```
 abuse, hostmaster, postmaster, webmaster --> admin@MYHOSTNAME
