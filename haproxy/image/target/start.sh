@@ -18,11 +18,13 @@ sed -i "s/MYHOSTNAME/${MYHOSTNAME}/" /etc/haproxy/haproxy-ssl.cfg
 if [ -f /certs/live/${MYHOSTNAME}/fullchain.pem ] && [ -f /certs/live/${MYHOSTNAME}/privkey.pem ]; then
 	echo "* SSL certificate data found"
 	cat /certs/live/${MYHOSTNAME}/fullchain.pem /certs/live/${MYHOSTNAME}/privkey.pem > /${MYHOSTNAME}.pem	
-	ENABLE_SSL="-f /etc/haproxy/haproxy-ssl.cfg"
+	export ENABLE_SSL="-f /etc/haproxy/haproxy-ssl.cfg"
 else
-	ENABLE_SSL=""
+	export ENABLE_SSL=""
 	echo "* SSL certificate data missing"
 fi
 
-/usr/sbin/haproxy -db -f /etc/haproxy/haproxy.cfg ${ENABLE_SSL}
+test -d /var/run/supervisord || mkdir -p /var/run/supervisord
+
+supervisord -n -c /etc/supervisord.conf
 
