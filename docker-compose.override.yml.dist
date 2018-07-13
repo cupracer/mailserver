@@ -12,66 +12,77 @@ services:
       driver: gelf
       options:
         gelf-address: "udp://127.0.0.1:12201"
+        tag: "postfix"
 
   letsencrypt:
     logging:
       driver: gelf
       options:
         gelf-address: "udp://127.0.0.1:12201"
+        tag: "letsencrypt"
 
   mysql:
     logging:
       driver: gelf
       options:
         gelf-address: "udp://127.0.0.1:12201"
+        tag: "mysql"
 
   dovecot:
     logging:
       driver: gelf
       options:
         gelf-address: "udp://127.0.0.1:12201"
+        tag: "dovecot"
 
   rspamd:
     logging:
       driver: gelf
       options:
         gelf-address: "udp://127.0.0.1:12201"
+        tag: "rspamd"
 
   redis:
     logging:
       driver: gelf
       options:
         gelf-address: "udp://127.0.0.1:12201"
+        tag: "redis"
 
   clamav:
     logging:
       driver: gelf
       options:
         gelf-address: "udp://127.0.0.1:12201"
+        tag: "clamav"
 
   postfixadmin:
     logging:
       driver: gelf
       options:
         gelf-address: "udp://127.0.0.1:12201"
+        tag: "postfixadmin"
 
   roundcube:
     logging:
       driver: gelf
       options:
         gelf-address: "udp://127.0.0.1:12201"
+        tag: "roundcube"
 
   roundcube-mysql:
     logging:
       driver: gelf
       options:
         gelf-address: "udp://127.0.0.1:12201"
+        tag: "roundcube-mysql"
 
   haproxy:
     logging:
       driver: gelf
       options:
         gelf-address: "udp://127.0.0.1:12201"
+        tag: "haproxy"
 
   mongo:
     image: mongo:3
