@@ -10,6 +10,8 @@ if [ "${MYSQL_PASSWORD}x" == "x" ]; then
 	exit 1
 fi
 
+/usr/sbin/update-ca-certificates
+
 DES_KEY="$(/usr/bin/pwgen -1cay 24)"
 
 sed -i "s/.*config.*db_dsnw.*/\$config\[\'db_dsnw\'\] = \'mysql\:\/\/app\:${MYSQL_PASSWORD//\//\\/}@roundcube-mysql\/app\'\;/" /etc/roundcubemail/config.inc.php

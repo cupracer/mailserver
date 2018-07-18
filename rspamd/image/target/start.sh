@@ -5,6 +5,8 @@ if [ "${RSPAMD_WEB_PASSWORD}x" == "x" ]; then
 	exit 1
 fi
 
+/usr/sbin/update-ca-certificates
+
 test -d /var/run/rspamd || mkdir -p /var/run/rspamd
 
 RSPAMD_WEB_PASSWORD_ENCRYPTED=$(/usr/bin/rspamadm pw -q -p "${RSPAMD_WEB_PASSWORD}");

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+/usr/sbin/update-ca-certificates
+
 /usr/bin/freshclam -d 
 
 while true; do

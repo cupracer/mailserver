@@ -10,6 +10,8 @@ if [ "${MYSQL_PASSWORD}x" == "x" ]; then
 	exit 1
 fi
 
+/usr/sbin/update-ca-certificates
+
 sed -i "s/^myhostname =.*/myhostname = ${MYHOSTNAME}/" /etc/postfix/main.cf
 sed -i "s/smtpd_tls_cert_file =.*/smtpd_tls_cert_file = \/certs\/live\/${MYHOSTNAME}\/fullchain.pem/" /etc/postfix/main.cf
 sed -i "s/smtpd_tls_key_file =.*/smtpd_tls_key_file = \/certs\/live\/${MYHOSTNAME}\/privkey.pem/" /etc/postfix/main.cf

@@ -15,6 +15,8 @@ if [ "${RSPAMD_WEB_PASSWORD}x" == "x" ]; then
 	exit 1
 fi
 
+/usr/sbin/update-ca-certificates
+
 sed -i "s/^connect =.*/connect = host=mysql dbname=app user=app password=${MYSQL_PASSWORD//\//\\/}/" /etc/dovecot/dovecot-sql.conf.ext
 sed -i "s/^connect =.*/connect = host=mysql dbname=app user=app password=${MYSQL_PASSWORD//\//\\/}/" /etc/dovecot/dovecot-dict-sql.conf.ext
 
