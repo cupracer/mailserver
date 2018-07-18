@@ -16,6 +16,7 @@ services:
       - letsencrypt
     environment:
       MYHOSTNAME: ${MYHOSTNAME:-mail.example.de}
+      INET_PROTOCOLS: ${INET_PROTOCOLS:-all}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-secret}
     logging:
       driver: "json-file"

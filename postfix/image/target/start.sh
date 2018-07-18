@@ -5,6 +5,11 @@ if [ "${MYHOSTNAME}x" == "x" ]; then
 	exit 1
 fi
 
+if [ "${INET_PROTOCOLS}x" == "x" ]; then
+        echo "INET_PROTOCOLS is missing"
+        exit 1
+fi
+
 if [ "${MYSQL_PASSWORD}x" == "x" ]; then
 	echo "MYSQL_PASSWORD is missing"
 	exit 1
@@ -13,6 +18,7 @@ fi
 /usr/sbin/update-ca-certificates
 
 sed -i "s/^myhostname =.*/myhostname = ${MYHOSTNAME}/" /etc/postfix/main.cf
+sed -i "s/^inet_protocols =.*/inet_protocols = ${INET_PROTOCOLS}/" /etc/postfix/main.cf
 sed -i "s/smtpd_tls_cert_file =.*/smtpd_tls_cert_file = \/certs\/live\/${MYHOSTNAME}\/fullchain.pem/" /etc/postfix/main.cf
 sed -i "s/smtpd_tls_key_file =.*/smtpd_tls_key_file = \/certs\/live\/${MYHOSTNAME}\/privkey.pem/" /etc/postfix/main.cf
 
