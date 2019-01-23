@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+
+  postfix:
+    logging:
+      driver: syslog
+      options:
+        tag: docker-mail-roundcube
+
+  letsencrypt:
+    logging:
+      driver: syslog
+      options:
+        tag: docker-mail-letsencrypt
+
+  mysql:
+    logging:
+      driver: syslog
+      options:
+        tag: docker-mail-mysql
+
+  dovecot:
+    logging:
+      driver: syslog
+      options:
+        tag: docker-mail-dovecot
+
+  rspamd:
+    logging:
+      driver: syslog
+      options:
+        tag: docker-mail-rspamd
+
+  redis:
+    logging:
+      driver: syslog
+      options:
+        tag: docker-mail-redis
+
+  clamav:
+    logging:
+      driver: syslog
+      options:
+        tag: docker-mail-clamav
+
+  postfixadmin:
+    logging:
+      driver: syslog
+      options:
+        tag: docker-mail-postfixadmin
+
+  roundcube:
+    logging:
+      driver: syslog
+      options:
+        tag: docker-mail-roundcube
+
+  roundcube-mysql:
+    logging:
+      driver: syslog
+      options:
+        tag: docker-mail-roundcube-mysql
+
+  haproxy:
+    logging:
+      driver: syslog
+      options:
+        tag: docker-mail-haproxy
+
