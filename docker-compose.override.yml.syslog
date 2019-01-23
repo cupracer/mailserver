@@ -44,6 +44,12 @@ services:
       options:
         tag: docker-mail-clamav
 
+  postfix:
+    logging:
+      driver: syslog
+      options:
+        tag: docker-mail-postfix
+
   postfixadmin:
     logging:
       driver: syslog
