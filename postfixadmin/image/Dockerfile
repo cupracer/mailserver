@@ -15,7 +15,6 @@ ENV PHP_REPO_ALIAS devel_languages_php_php71
 RUN zypper --non-interactive --gpg-auto-import-keys ar --refresh --name $PHP_REPO_ALIAS https://download.opensuse.org/repositories/devel:/languages:/php:/php71/openSUSE_Leap_15.0/devel:languages:php:php71.repo \
 	&& zypper --non-interactive --gpg-auto-import-keys ref \
 	&& zypper --non-interactive in --no-recommends --from $PHP_REPO_ALIAS \
-		php7-imap \
 		php7-openssl \
 		php7-phar
 
