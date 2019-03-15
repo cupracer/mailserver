@@ -25,6 +25,8 @@ sed -i "s/RSPAMD_WEB_PASSWORD/${RSPAMD_WEB_PASSWORD//\//\\/}/" /usr/local/bin/rs
 
 while ! [[ -f /certs/live/${MYHOSTNAME}/fullchain.pem ]] || ! [[ -f /certs/live/${MYHOSTNAME}/privkey.pem ]]; do echo "waiting for SSL certificate data"; sleep 1; done
 
+test -f /certs/live/${MYHOSTNAME}/ca.crt && cp /certs/live/${MYHOSTNAME}/ca.crt /etc/pki/trust/anchors/${MYHOSTNAME}_ca.crt && update-ca-certificates
+
 test -d /var/run/dovecot/sieve-pipe || mkdir -p /var/run/dovecot/sieve-pipe
 
 dovecot -F
