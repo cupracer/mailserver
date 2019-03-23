@@ -722,8 +722,8 @@ smtpd_client_restrictions = permit_mynetworks
 
 smtpd_helo_restrictions = permit_mynetworks
                           reject_invalid_helo_hostname
-                          reject_non_fqdn_helo_hostname
                           reject_unknown_helo_hostname
+                          reject_non_fqdn_helo_hostname
 
 ############smtpd_sender_restrictions = hash:/etc/postfix/access
 
@@ -864,3 +864,7 @@ append_dot_mydomain = no
 
 smtpd_sender_login_maps = proxy:mysql:/etc/postfix/sql/mysql_virtual_sender_maps.cf
 postscreen_upstream_proxy_protocol = haproxy
+
+smtp_host_lookup = dns, native
+lmtp_host_lookup = dns, native
+

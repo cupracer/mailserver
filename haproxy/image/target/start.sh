@@ -10,6 +10,8 @@ if [ "${WEB_PASSWORD}x" == "x" ]; then
     exit 1
 fi
 
+/usr/sbin/update-ca-certificates
+
 WEB_PASSWORD_ENCRYPTED="$(/usr/bin/mkpasswd -m sha-512 ${WEB_PASSWORD})"
 
 sed -i "s/user admin password.*/user admin password ${WEB_PASSWORD_ENCRYPTED//\//\\/}/" /etc/haproxy/haproxy.cfg

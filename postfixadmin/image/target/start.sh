@@ -15,6 +15,8 @@ if [ "${SETUP_PASSWORD}x" == "x" ]; then
 	exit 1
 fi
 
+/usr/sbin/update-ca-certificates
+
 sed -i "s/MYHOSTNAME/${MYHOSTNAME}/g" /etc/postfixadmin/config.local.php
 sed -i "s/MYSQL_PASSWORD/${MYSQL_PASSWORD//\//\\/}/g" /etc/postfixadmin/config.local.php
 

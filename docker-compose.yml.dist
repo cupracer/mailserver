@@ -16,6 +16,7 @@ services:
       - letsencrypt
     environment:
       MYHOSTNAME: ${MYHOSTNAME:-mail.example.de}
+      INET_PROTOCOLS: ${INET_PROTOCOLS:-all}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-secret}
     logging:
       driver: "json-file"
@@ -145,7 +146,8 @@ services:
     tmpfs:
       - /run
     environment:
-      MYHOSTNAME: ${MYHOSTNAME:-mail.example.de}
+      IMAP_SERVER: ${IMAP_SERVER:-dovecot}
+      SMTP_SERVER: ${SMTP_SERVER:-postfix}
       MYSQL_PASSWORD: ${ROUNDCUBE_MYSQL_PASSWORD:-secret}
     depends_on:
       - roundcube-mysql
